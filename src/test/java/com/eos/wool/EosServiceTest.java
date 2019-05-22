@@ -19,8 +19,6 @@ public class EosServiceTest {
     @Resource
     private EosService eosService;
 
-
-
     @Test
     public void arr(){
         int[] myList = {0,1,22,25,26,27,28,29,31,36,39,50,55,57,58,60,68,76,77,85,91,97};

@@ -327,6 +327,10 @@ public class Eos4j {
 		return pushTransaction(txBuilder.buildTransferRawTx(pk, contractAccount, from, to, quantity, memo));
 	}
 
+    public PushTransactionResults contract(String pk, String contractAccount,String from, String gamer,String selected) throws ApiException, IOException {
+        return pushTransaction(txBuilder.buildContractRawTx(pk, contractAccount, from, gamer, selected));
+    }
+
 	/**
 	 * 投票
 	 * 

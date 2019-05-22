@@ -104,9 +104,9 @@ public class TransactionBuilder {
 		tx.setExpiration(new Date(info.getHeadBlockTime().getTime() + 60000));
 		tx.setRefBlockNum(block.getBlockNum());
 		tx.setRefBlockPrefix(block.getRefBlockPrefix());
-		tx.setNetUsageWords(0l);
-		tx.setMaxCpuUsageMs(0l);
-		tx.setDelaySec(0l);
+		tx.setNetUsageWords(0L);
+		tx.setMaxCpuUsageMs(0L);
+		tx.setDelaySec(0L);
 		// add actions
 		List<Action> actions = actionCollector.collectActions();
 		tx.setActions(actions);
@@ -152,6 +152,21 @@ public class TransactionBuilder {
 		});
 	}
 
+    public SignedTransactionToPush buildContractRawTx(String pk, String contractAccount,String from, String gamer,String selected) throws ApiException, IOException {
+        return buildRawTx(pk, () -> {
+            List<Action> actions = new ArrayList<>();
+            // data
+            TestActionData dataMap = new TestActionData();
+            dataMap.setGamer(gamer);
+            dataMap.setSelected(selected);
+            // action
+            Action action = new Action(from, contractAccount, "begin", dataMap);
+            actions.add(action);
+            return actions;
+        });
+    }
+
+
 	/**
 	 * 组装投票原始交易
 	 * 
@@ -166,7 +181,7 @@ public class TransactionBuilder {
 	public SignedTransactionToPush buildVoteProducerRawTx(String pk, String voter, String proxy, List<String> producers)
 			throws ApiException, IOException {
 		return buildRawTx(pk, () -> {
-			producers.sort((h1, h2) -> h1.compareTo(h2));
+			producers.sort(String::compareTo);
 			List<Action> actions = new ArrayList<>();
 			// data
 			VoteProducerActionData data = new VoteProducerActionData();

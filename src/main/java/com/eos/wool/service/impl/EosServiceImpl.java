@@ -35,26 +35,23 @@ public class EosServiceImpl implements EosService {
 
     @Override
     public void mining() {
-        executors.execute(new Runnable() {
-            @Override
-            public void run() {
-                Eos4j eos4j = new Eos4j("https://api.jeda.one");
+        executors.execute(() -> {
+            Eos4j eos4j = new Eos4j("https://api.jeda.one");
 
-                PushTransactionResults transactionResults = null;
-                try {
+            PushTransactionResults transactionResults = null;
+            try {
 
-                    transactionResults = eos4j.transfer("你的私钥",
-                            "eosio.token","你的账户名",
-                            "eosfakerroll",
-                            "0.5000 EOS", "96|pengchaoling");
+                transactionResults = eos4j.transfer("你的私钥",
+                        "eosio.token","你的账户名",
+                        "eosfakerroll",
+                        "0.5000 EOS", "96|pengchaoling");
 
-                    System.out.println(transactionResults.toString());
+                System.out.println(transactionResults.toString());
 
-                } catch (IOException e) {
-
-                }
+            } catch (IOException e) {
 
             }
+
         });
 
     }
